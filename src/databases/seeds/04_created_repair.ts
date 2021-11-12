@@ -3,9 +3,21 @@ import { config } from 'dotenv'
 import * as knexfile from '../../knexfile'
 
 config({ path: '../../../.env' })
+const db = Knex(knexfile[process.env.NODE_ENV as string])
 
 export async function seed(knex: KnexDB): Promise<void> {
-  const db = Knex(knexfile[process.env.NODE_ENV as string])
+  // rollback and migrate latest
+  const cekTable = await db.raw(
+    "SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename  = 'repair_service')"
+  )
+
+  if (!cekTable.length) {
+    await db.migrate.latest()
+  } else {
+    await db.migrate.rollback()
+    await db.migrate.latest()
+  }
+
   const companyData = await db('company').select('*').limit(5)
   const userData = await db('user').select('*').limit(5)
 
