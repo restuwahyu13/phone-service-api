@@ -23,7 +23,7 @@ export class App {
   private repair: Router
   private user: Router
   private company: Router
-  public knex: KnexDB
+  private knex: KnexDB
 
   constructor() {
     this.app = express()
