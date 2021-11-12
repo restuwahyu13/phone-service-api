@@ -42,11 +42,12 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
 
   public async resultsServiceDevice(req: Request<IDevice>): Promise<Record<string, any>> {
     try {
-      const limit: any = req.query.limit || 10
-      const offset: any = req.query.offset || 0
+      const limit: any = parseInt(req.query.limit as any)
+      const offset: any = parseInt(req.query.offset as any)
       const sort: any = req.query.sort || 'desc'
+      const perpage = limit
       const countData: ModelDevice[] = await super.model().query().select('id')
-      const totalData: number = Math.abs(Math.ceil(limit / countData.length))
+      const totalPage: number = Math.ceil(countData.length / perpage)
 
       const getDevices: ModelDevice[] = await super
         .model()
@@ -61,7 +62,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
         )
         .join('company', 'device.company_id', '=', 'company.id')
         .join('user', 'device.created_by_id', '=', 'user.id')
-        .limit(totalData)
+        .limit(limit)
         .offset(offset)
         .orderBy('device.created_at', sort)
 
@@ -93,7 +94,11 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
         }
       })
 
-      return Promise.resolve({ code: status.OK, message: 'Devices OK', devices: newGetDevices })
+      return Promise.resolve({
+        code: status.OK,
+        message: 'Devices OK',
+        devices: { count: countData.length, limit, page: totalPage, offset, data: newGetDevices }
+      })
     } catch (e: any) {
       return Promise.reject({ code: e.code, message: e.message })
     }

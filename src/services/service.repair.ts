@@ -42,11 +42,12 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
   public async resultsServiceRepair(req: Request<IRepair>): Promise<Record<string, any>> {
     try {
-      const limit: any = req.query.limit || 10
-      const offset: any = req.query.offset || 0
+      const limit: any = parseInt(req.query.limit as any)
+      const offset: any = parseInt(req.query.offset as any)
       const sort: any = req.query.sort || 'desc'
+      const perpage = limit
       const countData: ModelRepair[] = await super.model().query().select('id')
-      const totalData: number = Math.abs(Math.ceil(limit / countData.length))
+      const totalPage: number = Math.ceil(countData.length / perpage)
 
       const getServiceRepairs: ModelRepair[] = await super
         .model()
@@ -61,7 +62,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         )
         .join('company', 'repair_service.company_id', '=', 'company.id')
         .join('user', 'repair_service.created_by_id', '=', 'user.id')
-        .limit(totalData)
+        .limit(limit)
         .offset(offset)
         .orderBy('repair_service.created_at', sort)
 
@@ -95,7 +96,11 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         }
       })
 
-      return Promise.resolve({ code: status.OK, message: 'Service Repairs OK', services: newGetServiceRepairs })
+      return Promise.resolve({
+        code: status.OK,
+        message: 'Service Repairs OK',
+        services: { count: countData.length, limit, page: totalPage, offset, data: newGetServiceRepairs }
+      })
     } catch (e: any) {
       return Promise.reject({ code: e.code, message: e.message })
     }
