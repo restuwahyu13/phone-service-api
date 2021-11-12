@@ -3,14 +3,14 @@ import { Knex } from 'knex'
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.withSchema('public').createTable('repair_service', (table: Knex.TableBuilder) => {
     table.increments('service_id').unsigned().index()
-    table.integer('company_id').references('company').inTable('company').unsigned().unique().notNullable().index()
+    table.integer('company_id').references('id').inTable('company').unsigned().unique().notNullable().index()
     table.string('service_cd', 50).notNullable()
     table.string('description', 150).notNullable()
     table.boolean('active').notNullable()
     table.boolean('walk_in_service').notNullable()
     table.boolean('preliminary_check').notNullable()
     table.boolean('prepayment').notNullable()
-    table.integer('created_by_id').references('user').inTable('user').unsigned().unique().notNullable().index()
+    table.integer('created_by_id').references('id').inTable('user').unsigned().unique().notNullable().index()
     table.string('created_by_screen_id', 8).notNullable()
     table.dateTime('created_date_time').notNullable()
     table.integer('last_modified_by_id').unsigned().unique().nullable()

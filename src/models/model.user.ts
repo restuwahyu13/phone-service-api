@@ -7,7 +7,7 @@ export class ModelUser extends Model implements DTOUser {
   first_name!: string
   last_name!: string
   email!: string
-  phone!: number
+  phone!: string
   password!: string
   active!: boolean
   role!: string
@@ -25,12 +25,14 @@ export class ModelUser extends Model implements DTOUser {
   async $beforeInsert(): Promise<void> {
     const password: string = await hashPassword(this.password)
     this.password = password
+    this.phone = String(this.phone)
     this.created_at = new Date()
   }
 
   async $beforeUpdate(): Promise<void> {
     const password = await hashPassword(this.password)
     this.password = password
+    this.phone = String(this.phone)
     this.updated_at = new Date()
   }
 }

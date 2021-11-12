@@ -5,12 +5,12 @@ export class ModelCompany extends Model implements DTOCompany {
   id!: number
   name!: string
   email!: string
-  phone!: number
+  phone!: string
   address!: string
   state!: string
   city!: string
   country!: string
-  postcode!: number
+  postcode!: string
   active!: boolean
   created_at?: any
   updated_at?: any
@@ -24,10 +24,14 @@ export class ModelCompany extends Model implements DTOCompany {
   }
 
   $beforeInsert(): void {
+    this.phone = String(this.phone)
+    this.postcode = String(this.postcode)
     this.created_at = new Date()
   }
 
   $beforeUpdate(): void {
+    this.phone = String(this.phone)
+    this.postcode = String(this.postcode)
     this.updated_at = new Date()
   }
 }
