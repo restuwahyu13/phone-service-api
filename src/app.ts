@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express, { Express, Router } from 'express'
 import http, { Server } from 'http'
-import Knex from 'knex'
+import Knex, { Knex as KnexDB } from 'knex'
 import Objection from 'objection'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -16,17 +16,19 @@ import { RouteRepair } from '@routes/route.repair'
 import { RouteUser } from '@routes/route.user'
 import { RouteCompany } from '@routes/route.company'
 
-class App {
+export class App {
   private app: Express
   private server: Server
   private device: Router
   private repair: Router
   private user: Router
   private company: Router
+  public knex: KnexDB
 
   constructor() {
     this.app = express()
     this.server = http.createServer(this.app)
+    this.knex = Knex(knexfile[process.env.NODE_ENV as string])
     this.device = new RouteDevice().main()
     this.repair = new RouteRepair().main()
     this.user = new RouteUser().main()
@@ -34,8 +36,7 @@ class App {
   }
 
   private async connection(): Promise<void> {
-    const knex: any = Knex(knexfile[process.env.NODE_ENV as string])
-    Objection.Model.knex(knex)
+    Objection.Model.knex(this.knex)
   }
 
   private async middleware(): Promise<void> {

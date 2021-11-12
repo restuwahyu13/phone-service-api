@@ -1,13 +1,11 @@
-import Knex, { Knex as KnexDB } from 'knex'
-import { config } from 'dotenv'
+import { Knex } from 'knex'
 import faker from 'faker'
-import * as knexfile from '../../knexfile'
+import { App } from '../../app'
 import { randomPhoneNumber } from '../../helpers/helper.randomPhone'
 
-config({ path: '../../../.env' })
-const db = Knex(knexfile[process.env.NODE_ENV as string])
+let db = new App().knex
 
-export async function seed(knex: KnexDB): Promise<void> {
+export async function seed(knex: Knex): Promise<void> {
   // rollback and migrate latest
   const cekTable = await db.raw("SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename  = 'company')")
 
