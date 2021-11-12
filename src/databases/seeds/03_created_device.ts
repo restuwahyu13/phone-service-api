@@ -1,64 +1,69 @@
 import { Knex } from 'knex'
+import crypto from 'crypto'
 import { knex } from '../../configs/config.db'
 
 let db = knex
 
 export async function seed(knex: Knex): Promise<void> {
-  const companyData = await db('company').select('*').limit(5)
-  const userData = await db('user').select('*').limit(5)
+  const companyData = await db('company').select('*')
+  const userData = await db('user').select('*')
 
-  const devicesData: Record<string, any> = [
-    {
-      device_cd: 'SAMSUNGA6',
-      description: 'samsung a6 2019',
-      active: true,
-      complexity: 'high',
-      created_date_time: new Date(),
-      last_modified_date_time: new Date(),
-      created_at: new Date(),
-      updated_at: new Date()
-    },
-    {
-      device_cd: 'REDMINOTE8',
-      description: 'redmi note 8 2020',
-      active: true,
-      complexity: 'high',
-      created_date_time: new Date(),
-      last_modified_date_time: new Date(),
-      created_at: new Date(),
-      updated_at: new Date()
-    },
-    {
-      device_cd: 'IPHONE11',
-      description: 'iphone 11 2020',
-      active: true,
-      complexity: 'high',
-      created_date_time: new Date(),
-      last_modified_date_time: new Date(),
-      created_at: new Date(),
-      updated_at: new Date()
-    },
-    {
-      device_cd: 'OVORENO',
-      description: 'ovoreno 2021',
-      active: true,
-      complexity: 'medium',
-      created_date_time: new Date(),
-      last_modified_date_time: new Date(),
-      created_at: new Date(),
-      updated_at: new Date()
-    },
-    {
-      device_cd: 'SAMSUNGA5',
-      description: 'samsung a5 2020',
-      active: true,
-      complexity: 'low',
-      created_date_time: new Date(),
-      last_modified_date_time: new Date(),
-      created_at: new Date(),
-      updated_at: new Date()
-    }
-  ]
+  const devicesData: Record<string, any> = []
+
+  for (let i = 1; i <= companyData.length; i++) {
+    devicesData.push(
+      {
+        device_cd: `SAMSUNG${`SR-${crypto.randomBytes(1).toString('hex').toUpperCase()}`}}`,
+        description: 'samsung a6 2019',
+        active: true,
+        complexity: 'high',
+        created_date_time: new Date(),
+        last_modified_date_time: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        device_cd: `XIOMI${`SR-${crypto.randomBytes(1).toString('hex').toUpperCase()}`}`,
+        description: 'redmi note 8 2020',
+        active: true,
+        complexity: 'high',
+        created_date_time: new Date(),
+        last_modified_date_time: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        device_cd: `IPHONE${`SR-${crypto.randomBytes(1).toString('hex').toUpperCase()}`}`,
+        description: 'iphone 11 2020',
+        active: true,
+        complexity: 'high',
+        created_date_time: new Date(),
+        last_modified_date_time: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        device_cd: `OVO${`SR-${crypto.randomBytes(1).toString('hex').toUpperCase()}`}`,
+        description: 'ovoreno 2021',
+        active: true,
+        complexity: 'medium',
+        created_date_time: new Date(),
+        last_modified_date_time: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        device_cd: `VIVO${`SR-${crypto.randomBytes(1).toString('hex').toUpperCase()}`}`,
+        description: 'samsung a5 2020',
+        active: true,
+        complexity: 'low',
+        created_date_time: new Date(),
+        last_modified_date_time: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    )
+  }
 
   const newData = companyData.map((val: Record<string, any>, index: number) => {
     return {

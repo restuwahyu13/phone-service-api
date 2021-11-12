@@ -1,5 +1,5 @@
 export interface DTORepair {
-  service_id: number
+  id: number
   company_id: number
   service_cd: string
   description: string

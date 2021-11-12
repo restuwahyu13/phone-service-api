@@ -5,7 +5,7 @@ import { randomPhoneNumber } from '../../helpers/helper.randomPhone'
 export async function seed(knex: Knex): Promise<void> {
   const usersData: Record<string, any> = []
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 10; i++) {
     usersData.push({
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
@@ -19,7 +19,7 @@ export async function seed(knex: Knex): Promise<void> {
     })
   }
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 20; i++) {
     usersData.push({
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
@@ -33,7 +33,7 @@ export async function seed(knex: Knex): Promise<void> {
     })
   }
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 20; i++) {
     usersData.push({
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),

@@ -1,5 +1,5 @@
 export interface DTODevice {
-  device_id: number
+  id: number
   company_id: number
   device_cd: string
   description: string

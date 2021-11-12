@@ -17,9 +17,9 @@ export interface IServiceRepair {
 }
 
 export type IRepair = {
-  service_id: number
+  id: number
   company_id: number
-  device_cd: string
+  service_cd: string
   description: string
   active: boolean
   walk_in_service: boolean

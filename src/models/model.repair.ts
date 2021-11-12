@@ -4,7 +4,7 @@ import { ModelCompany } from '@models/model.company'
 import { ModelUser } from '@models/model.user'
 
 export class ModelRepair extends Model implements DTORepair {
-  service_id!: number
+  id!: number
   company_id!: number
   service_cd!: string
   description!: string

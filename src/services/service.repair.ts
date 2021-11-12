@@ -17,7 +17,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         throw { code: status.BAD_REQUEST, message: 'Column table miss match' }
       }
 
-      const checkServiceRepairCode: ModelRepair = await super.model().query().findOne({ service_cd: req.body.service_id })
+      const checkServiceRepairCode: ModelRepair = await super.model().query().findOne({ service_cd: req.body.service_cd })
 
       if (checkServiceRepairCode) {
         throw { code: status.CONFLICT, message: 'Service repair code already exist' }
@@ -52,18 +52,18 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         .model()
         .query()
         .select(
-          'repair.*',
+          'repair_service.*',
           'company.*',
           'company.id as companyId',
           'company.email as companyEmail',
           'company.phone as companyPhone',
           'user.*'
         )
-        .join('company', 'repair.company_id', '=', 'company.id')
-        .join('user', 'repair.created_by_id', '=', 'user.id')
+        .join('company', 'repair_service.company_id', '=', 'company.id')
+        .join('user', 'repair_service.created_by_id', '=', 'user.id')
         .limit(totalData)
         .offset(offset)
-        .orderBy('repair.created_at', sort)
+        .orderBy('repair_service.created_at', sort)
 
       if (!getServiceRepairs) {
         throw { code: status.NOT_FOUND, message: 'Devices data not found' }
@@ -112,15 +112,15 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         .model()
         .query()
         .select(
-          'repair.*',
+          'repair_service.*',
           'company.*',
           'company.id as companyId',
           'company.email as companyEmail',
           'company.phone as companyPhone',
           'user.*'
         )
-        .join('company', 'repair.company_id', '=', 'company.id')
-        .join('user', 'repair.created_by_id', '=', 'user.id')
+        .join('company', 'repair_service.company_id', '=', 'company.id')
+        .join('user', 'repair_service.created_by_id', '=', 'user.id')
         .where('device.id', req.params.id)
         .first()
 

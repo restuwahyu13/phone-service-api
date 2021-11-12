@@ -4,7 +4,7 @@ import { ModelCompany } from '@models/model.company'
 import { ModelUser } from '@models/model.user'
 
 export class ModelDevice extends Model implements DTODevice {
-  device_id!: number
+  id!: number
   company_id!: number
   device_cd!: string
   description!: string

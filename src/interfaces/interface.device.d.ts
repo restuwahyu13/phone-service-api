@@ -16,7 +16,7 @@ export interface IServiceDevice {
   updateServiceDevice(req: Request): Promise<Record<string, any>>
 }
 export type IDevice = {
-  device_id: number
+  id: number
   company_id: number
   device_cd: string
   description: string
