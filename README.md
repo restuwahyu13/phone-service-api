@@ -1,3 +1,3 @@
 # Tecnical Test
 
-Tecnical test from PT.Sun Artha Putra Mandiri for Junior Backend Developer position.
+Tecnical Test from PT.Sun Artha Putra Mandiri for Junior Backend Developer Position.
