@@ -10,52 +10,68 @@ Before you run this app you must run migration database, after migration you can
 
 - ### Application Environment
 
-  + **Development Mode**
+  - **Development Mode**
+
   ```sh
-  $ npm run dev || make dev  
+  npm run dev || make dev
   ```
-    + **Production Mode**
+  - **Production Mode**
+
   ```sh
-  $ npm start || make prod  
+  npm start || make prod
   ```
-    + **Testing Mode**
+  - **Testing Mode**
+
   ```sh
-  $ npm test || make test  
+  npm test || make test
   ```
-    + **Build Application**
+  - **Build Application**
+
   ```sh
-  $ npm run build || make build  
+  npm run build || make build
   ```
+
 - ### Database Environment
 
-    + **Latest Or Rollback Database Migration**
+  - **Latest Or Rollback Database Migration**
+
   ```sh
-  $ npm run kmig || npm run kroll || make kmig type=<latest | rollback>
+  npm run kmig || npm run kroll || make kmig type=<latest | rollback>
   ```
-    + **List Migration Database**
+  - **List Migration Database**
+
   ```sh
-  $ npm run klist || npm run kroll || make klist
+  npm run klist || npm run kroll || make klist
   ```
-    + **Run Seed Database**
+  - **Run Seed Database**
+
   ```sh
-  $ npm run krun || make krun
+  npm run krun || make krun
   ```
-    + **Created Seed Database**
+  - **Created Seed Database**
+
   ```sh
-  $ npx knex --cwd src --knexfile knexfile seed:make <seed db name> || make kmakes name=<seed db name>
+  npx knex --cwd src --knexfile knexfile seed:make <seed db name> || make kmakes name=<seed db name>
   ```
-    + **Created Migration Database**
+  - **Created Migration Database**
+
   ```sh
-  $ npx knex --cwd src --knexfile knexfile migrate:make <migration db name> || make kmakem name=<migration db name>
+  npx knex --cwd src --knexfile knexfile migrate:make <migration db name> || make kmakem name=<migration db name>
   ```
 
 - ### Docker Environment
 
-    + **Docker Compose Up**
+  - **Docker Compose Up**
+
   ```sh
-  $ docker-compose up -d --build || make dcu
+  docker-compose up -d --build || make dcu
   ```
-    + **Docker Compose Down**
+  - **Docker Compose Down**
+
   ```sh
-  $ docker-compose down || make dcd
+  docker-compose down || make dcd
   ```
+
+## Test Driver Development 100% Pass
+
+<img src="testing.png"/>
