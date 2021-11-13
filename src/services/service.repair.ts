@@ -64,7 +64,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         .join('user', 'repair_service.created_by_id', '=', 'user.id')
         .limit(limit)
         .offset(offset)
-        .orderBy('repair_service.created_at', sort)
+        .orderBy('repair_service.id', sort)
 
       if (!getServiceRepairs) {
         throw { code: status.NOT_FOUND, message: 'Devices data not found' }

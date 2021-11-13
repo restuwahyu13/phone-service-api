@@ -64,7 +64,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
         .join('user', 'device.created_by_id', '=', 'user.id')
         .limit(limit)
         .offset(offset)
-        .orderBy('device.created_at', sort)
+        .orderBy('device.id', sort)
 
       if (!getDevices) {
         throw { code: status.NOT_FOUND, message: 'Devices data not found' }

@@ -1,5 +1,5 @@
 #####################
-# FIRST STEP STATE
+# FIRST STAGE STEP
 ####################
 FROM node:14.18.1-alpine as node
 WORKDIR /usr/app

@@ -43,7 +43,7 @@ services:
 volumes:
   pg:
 ###############################
-# NETWORK SHARING
+# NETWORK GROUP SHARING
 ##############################
 networks:
   sunartha-network:

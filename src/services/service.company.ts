@@ -1,5 +1,7 @@
 import { StatusCodes as status } from 'http-status-codes'
 import { ModelCompany } from '@models/model.company'
+import { ModelRepair } from '@models/model.repair'
+import { ModelDevice } from '@models/model.device'
 import { IServiceCompany, ICompany } from '@interfaces/interface.company'
 import { Request } from '@helpers/helper.generic'
 
@@ -48,45 +50,80 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
 
   public async resultsServiceCompany(req: Request<ICompany>): Promise<Record<string, any>> {
     try {
-      const limit: any = req.query.limit || 10
-      const offset: any = req.query.offset || 0
+      const limit: any = parseInt(req.query.limit as any) || 10
+      const offset: any = parseInt(req.query.offset as any) || 0
       const sort: any = req.query.sort || 'desc'
+      const perpage = limit
       const countData: ModelCompany[] = await super.model().query().select('id')
-      const totalData: number = Math.abs(Math.ceil(limit / countData.length))
+      const totalPage: number = Math.ceil(countData.length / perpage)
 
-      const getCompanys: ModelCompany[] = await super.model().query().limit(totalData).offset(offset).orderBy('created_at', sort)
+      const getCompanys: ModelCompany[] = await super.model().query().limit(limit).offset(offset).orderBy('id', sort)
 
       if (!getCompanys) {
         throw { code: status.NOT_FOUND, message: 'Companys data not found' }
       }
 
-      // const newGetServiceCompanys: Record<string, any>[] = getServiceCompanys.map((val: Record<string, any>) => {
-      //   return {
-      //     service_id: val.service_id,
-      //     service_cd: val.service_cd,
-      //     description: val.description,
-      //     active: val.active,
-      //     walk_in_service: val.walk_in_service,
-      //     preliminary_check: val.preliminary_check,
-      //     prepayment: val.prepayment,
-      //     noted_id: val.note,
-      //     created_by: `${val.first_name}  ${val.last_name}`,
-      //     company: {
-      //       id: val.companyId,
-      //       name: val.name,
-      //       email: val.companyEmail,
-      //       phone: val.companyPhone,
-      //       address: val.address,
-      //       state: val.state,
-      //       city: val.city,
-      //       country: val.city,
-      //       postcode: val.postcode,
-      //       active: val.active
-      //     }
-      //   }
-      // })
+      const newGetCompanys: Record<string, any>[] = getCompanys.map(async (val: Record<string, any>) => {
+        const getDevice: ModelDevice = await ModelDevice.query().where('company_id', val.id).first()
+        const getRepair: ModelRepair = await ModelRepair.query().where('company_id', val.id).first()
 
-      return Promise.resolve({ code: status.OK, message: 'Companys OK', services: getCompanys })
+        return {
+          id: val.id,
+          name: val.name,
+          email: val.email,
+          phone: val.phone,
+          address: val.address,
+          state: val.state,
+          city: val.city,
+          country: val.city,
+          postcode: val.postcode,
+          active: val.active,
+          created_at: val.created_at,
+          updated_at: val.updated_at,
+          device: {
+            id: getDevice.id,
+            device_cd: getDevice.device_cd,
+            description: getDevice.description,
+            active: getDevice.active,
+            complexity: getDevice.complexity,
+            created_by_id: getDevice.created_by_id,
+            created_by_screen_id: getDevice.created_by_screen_id,
+            created_date_time: getDevice.created_date_time,
+            last_modified_by_id: getDevice.last_modified_by_id,
+            last_modified_by_screen_id: getDevice.last_modified_by_screen_id,
+            last_modified_date_time: getDevice.last_modified_date_time
+          },
+          repair: {
+            id: getRepair.id,
+            company_id: getRepair.company_id,
+            service_cd: getRepair.service_cd,
+            description: getRepair.description,
+            active: getRepair.active,
+            walk_in_service: getRepair.walk_in_service,
+            preliminary_check: getRepair.preliminary_check,
+            prepayment: getRepair.prepayment,
+            created_by_id: getRepair.created_by_id,
+            created_by_screen_id: getRepair.created_by_screen_id,
+            created_date_time: getRepair.created_date_time,
+            last_modified_by_id: getRepair.last_modified_by_id,
+            last_modified_by_screen_id: getRepair.last_modified_by_screen_id,
+            last_modified_date_time: getRepair.last_modified_date_time
+          }
+        }
+      })
+
+      const companys: Record<string, any>[] = []
+
+      for (let i in newGetCompanys) {
+        const res = await newGetCompanys[i]
+        companys.push(res)
+      }
+
+      return Promise.resolve({
+        code: status.OK,
+        message: 'Companys OK',
+        companys: { count: countData.length, limit, page: totalPage, offset, data: companys }
+      })
     } catch (e: any) {
       return Promise.reject({ code: e.code, message: e.message })
     }
@@ -105,31 +142,54 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
         throw { code: status.NOT_FOUND, message: `Company data not found, for this id ${req.params.id}` }
       }
 
-      // const getNewServiceCompany: Record<string, any> = {
-      //   service_id: getServiceCompany.service_id,
-      //   service_cd: getServiceCompany.service_cd,
-      //   description: getServiceCompany.description,
-      //   active: getServiceCompany.active,
-      //   walk_in_service: getServiceCompany.walk_in_service,
-      //   preliminary_check: getServiceCompany.preliminary_check,
-      //   prepayment: getServiceCompany.prepayment,
-      //   noted_id: getServiceCompany.note,
-      //   created_by: `${getServiceCompany.first_name}  ${getServiceCompany.last_name}`,
-      //   company: {
-      //     id: getServiceCompany.companyId,
-      //     name: getServiceCompany.name,
-      //     email: getServiceCompany.companyEmail,
-      //     phone: getServiceCompany.companyPhone,
-      //     address: getServiceCompany.address,
-      //     state: getServiceCompany.state,
-      //     city: getServiceCompany.city,
-      //     country: getServiceCompany.city,
-      //     postcode: getServiceCompany.postcode,
-      //     active: getServiceCompany.active
-      //   }
-      // }
+      const getDevice: ModelDevice = await ModelDevice.query().where('company_id', getCompany.id).first()
+      const getRepair: ModelRepair = await ModelRepair.query().where('company_id', getCompany.id).first()
 
-      return Promise.resolve({ code: status.OK, message: 'Company OK', device: getCompany })
+      const getNewServiceCompany: Record<string, any> = {
+        id: getCompany.id,
+        name: getCompany.name,
+        email: getCompany.email,
+        phone: getCompany.phone,
+        address: getCompany.address,
+        state: getCompany.state,
+        city: getCompany.city,
+        country: getCompany.city,
+        postcode: getCompany.postcode,
+        active: getCompany.active,
+        created_at: getCompany.created_at,
+        updated_at: getCompany.updated_at,
+        device: {
+          id: getDevice.id,
+          device_cd: getDevice.device_cd,
+          description: getDevice.description,
+          active: getDevice.active,
+          complexity: getDevice.complexity,
+          created_by_id: getDevice.created_by_id,
+          created_by_screen_id: getDevice.created_by_screen_id,
+          created_date_time: getDevice.created_date_time,
+          last_modified_by_id: getDevice.last_modified_by_id,
+          last_modified_by_screen_id: getDevice.last_modified_by_screen_id,
+          last_modified_date_time: getDevice.last_modified_date_time
+        },
+        repair: {
+          id: getRepair.id,
+          company_id: getRepair.company_id,
+          service_cd: getRepair.service_cd,
+          description: getRepair.description,
+          active: getRepair.active,
+          walk_in_service: getRepair.walk_in_service,
+          preliminary_check: getRepair.preliminary_check,
+          prepayment: getRepair.prepayment,
+          created_by_id: getRepair.created_by_id,
+          created_by_screen_id: getRepair.created_by_screen_id,
+          created_date_time: getRepair.created_date_time,
+          last_modified_by_id: getRepair.last_modified_by_id,
+          last_modified_by_screen_id: getRepair.last_modified_by_screen_id,
+          last_modified_date_time: getRepair.last_modified_date_time
+        }
+      }
+
+      return Promise.resolve({ code: status.OK, message: 'Company OK', device: getNewServiceCompany })
     } catch (e: any) {
       return Promise.reject({ code: e.code, message: e.message })
     }
