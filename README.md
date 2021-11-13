@@ -72,6 +72,6 @@ Before you run this app you must run migration database, after migration you can
   docker-compose down || make dcd
   ```
 
-## Test Driver Development 100% Pass
+## Test Driven Development 100% Pass
 
 <img src="testing.png"/>
