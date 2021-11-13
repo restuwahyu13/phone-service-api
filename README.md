@@ -65,6 +65,11 @@ Before you run this app you must run migration database, after migration you can
   docker-compose exec app npm run kmig ||  docker-compose exec app npm run kroll || make kdoc type=<migration db name>
   ```
 
+  - **Run Seed Database Inside Docker**
+
+  ```sh
+  docker-compose exec app npm run krun || make krun 
+
 - ### Docker Environment
 
   - **Docker Compose Up**
