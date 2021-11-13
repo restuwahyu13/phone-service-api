@@ -15,6 +15,7 @@ import RouteDevice from '@routes/route.device'
 import RouteRepair from '@routes/route.repair'
 import RouteUser from '@routes/route.user'
 import RouteCompany from '@routes/route.company'
+import { globalError } from '@middlewares/middleware.error'
 
 interface IApp {
   app: Express
@@ -69,6 +70,7 @@ export class App {
     if (process.env.NODE_ENV !== 'production') {
       this.app.use(morgan('dev'))
     }
+    this.app.use(globalError())
   }
 
   private async config(): Promise<void> {
@@ -90,19 +92,19 @@ export class App {
     })
   }
 
-  public async mainTest(): Promise<IApp> {
-    await this.middleware()
-    await this.config()
-    await this.route()
-    return { app: this.app, db: this.connection() }
-  }
-
   public async main(): Promise<void> {
     this.connection()
     await this.middleware()
     await this.config()
     await this.route()
     await this.run()
+  }
+
+  public async mainTest(): Promise<IApp> {
+    await this.middleware()
+    await this.config()
+    await this.route()
+    return { app: this.app, db: this.connection() }
   }
 }
 

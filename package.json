@@ -75,8 +75,6 @@
     "faker": "^5.5.3",
     "mocha": "^9.1.3",
     "prettier": "^2.4.1",
-    "random-cn-mobile": "0.0.0",
-    "random-mobile": "^1.0.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",

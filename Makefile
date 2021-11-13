@@ -2,45 +2,45 @@
 # Application Teritory
 #############################
 dev:
-	npm run dev
+	@npm run dev
 prod:
-	npm start
+	@npm start
 build:
-	npm run build
+	@npm run build
 test:
-	npm test
+	@npm test
 
-install: npm.o build.o seed.o
+install: npm.o build.o test.o
 
 npm.o:
-	npm ci
+	@npm ci
 
 build.o:
-	npm run build
+	@npm run build
 
-seed.o:
-	npx knex --cwd src --knexfile knexfile seed:run
+test.o:
+	@npm test
 
 #############################
 # Knex Database Teritory
 #############################
 kmake:
 ifdef name
-	npx knex --cwd src --knexfile knexfile migrate:make ${name}
+	@npx knex --cwd src --knexfile knexfile migrate:make ${name}
 endif
 
 kmakes:
 ifdef name
-	npx knex --cwd src --knexfile knexfile seed:make ${name}
+	@npx knex --cwd src --knexfile knexfile seed:make ${name}
 endif
 
 kmig:
 ifdef type
-	npx knex --cwd src --knexfile knexfile migrate:${type}
+	@npx knex --cwd src --knexfile knexfile migrate:${type}
 endif
 
 krun:
-	npx knex --cwd src --knexfile knexfile seed:run
+	@npx knex --cwd src --knexfile knexfile seed:run
 
 klist:
-	npx knex --cwd src --knexfile knexfile migrate:list
+	@npx knex --cwd src --knexfile knexfile migrate:list

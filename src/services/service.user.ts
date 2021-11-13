@@ -34,10 +34,10 @@ export class ServiceUser extends ModelUser implements IServiceUser {
       const addNewUser: ModelUser = await super.model().query().insert(req.body)
 
       if (!addNewUser) {
-        throw { code: status.FORBIDDEN, message: 'Add new user failed' }
+        throw { code: status.FORBIDDEN, message: 'Add new user account failed' }
       }
 
-      return Promise.resolve({ code: status.CREATED, message: 'Add new user success' })
+      return Promise.resolve({ code: status.CREATED, message: 'Add new user account success' })
     } catch (e: any) {
       return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
@@ -69,7 +69,7 @@ export class ServiceUser extends ModelUser implements IServiceUser {
       }
 
       const generateAccessToken: IToken | string = await signToken(
-        { id: checkUser.id, email: checkUser.email },
+        { id: checkUser.id, email: checkUser.email, role: checkUser.role },
         { expiredAt: 1, type: 'days' }
       )
 

@@ -1,4 +1,3 @@
-import { Request } from 'express'
 import { StatusCodes as Status } from 'http-status-codes'
 import { decrypt, encrypt } from 'jwt-transform'
 import { NodeDiskStorage } from 'node-disk-storage'
@@ -48,7 +47,7 @@ export const signToken = async (data: Record<string, any>, options: Ioptions): P
   }
 }
 
-export const verifyToken = async (req: Request, accessToken: string): Promise<jwt.JwtPayload | string> => {
+export const verifyToken = async (accessToken: string): Promise<jwt.JwtPayload | string> => {
   try {
     const getAccessToken: string | undefined = nds.get('accessToken') || accessToken
 
@@ -58,8 +57,6 @@ export const verifyToken = async (req: Request, accessToken: string): Promise<jw
 
     const decryptAccessToken: string = await decrypt(getAccessToken, 26)
     const decodedToken: string | jwt.JwtPayload = jwt.verify(decryptAccessToken, secretKey, { audience: 'book-store-api' })
-    // global request data for user or admin
-    req['payload'] = decodedToken
 
     return decodedToken
   } catch (e: any) {
