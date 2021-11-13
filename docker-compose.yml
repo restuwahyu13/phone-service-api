@@ -6,7 +6,7 @@ services:
   app:
     restart: always
     build:
-      context: docker/node
+      context: src/docker/node
       dockerfile: Dockerfile
     env_file: .env
     ports:
@@ -22,7 +22,7 @@ services:
   db:
     restart: always
     build:
-      context: docker/pg
+      context: src/docker/pg
       dockerfile: Dockerfile
     environment:
       - POSTGRES_HOST=${DB_HOST}
