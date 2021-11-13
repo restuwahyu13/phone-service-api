@@ -22,6 +22,10 @@ dcu:
 dcd:
 	${COMPOSE} down
 
+kdoc:
+ifdef type
+	docker-compose exec app npm run ${type}
+endif
 
 #############################
 # Application Teritory

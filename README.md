@@ -59,6 +59,12 @@ Before you run this app you must run migration database, after migration you can
   npx knex --cwd src --knexfile knexfile migrate:make <migration db name> || make kmakem name=<migration db name>
   ```
 
+  - **Latest Or Rollback Database Migration Inside Docker**
+
+  ```sh
+  docker-compose exec app npm run kmig ||  docker-compose exec app npm run kroll || make kdoc type=<migration db name>
+  ```
+
 - ### Docker Environment
 
   - **Docker Compose Up**
