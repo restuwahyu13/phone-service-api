@@ -14,13 +14,18 @@ export const auth = (): Handler => {
         throw { code: Status.UNAUTHORIZED, message: 'Authorization is required' }
       }
 
-      const authorization: boolean | undefined = headers.authorization?.includes('Bearer')
+      const authorization: boolean | undefined = (headers.authorization as any).includes('Bearer')
 
       if (assert.isUndefined(authorization as any)) {
         throw { code: Status.UNAUTHORIZED, message: 'Bearer is required' }
       }
 
-      const accessToken: string | undefined = headers.authorization?.split('Bearer ')[1]
+      const accessToken: string | undefined = (headers.authorization as any).split('Bearer ')[1]
+
+      if (assert.isUndefined(accessToken as any)) {
+        throw { code: Status.UNAUTHORIZED, message: 'Access Token is required' }
+      }
+
       const decodedToken: JwtPayload = verifyToken(accessToken as any)
       req['payload'] = decodedToken
       next()
