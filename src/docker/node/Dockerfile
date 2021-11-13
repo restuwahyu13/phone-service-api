@@ -11,6 +11,7 @@ RUN apk add --update && make
 #####################
 # SECOND STAGE STEP
 #####################
+FROM node
 COPY --from=node ./ ./usr/app/
 RUN make install
 EXPOSE 3000 3000
