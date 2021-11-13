@@ -62,13 +62,13 @@ Before you run this app you must run migration database, after migration you can
   - **Latest Or Rollback Database Migration Inside Docker**
 
   ```sh
-  docker-compose exec app npm run kmig ||  docker-compose exec app npm run kroll || make kdoc type=<migration db name>
+  docker-compose exec app npm run kmig ||  docker-compose exec app npm run kroll || make kdmig type=<migration db name>
   ```
 
   - **Run Seed Database Inside Docker**
 
   ```sh
-  docker-compose exec app npm run krun || make krun 
+  docker-compose exec app npm run krun || make kdrun 
 
 - ### Docker Environment
 

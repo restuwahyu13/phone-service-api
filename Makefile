@@ -22,10 +22,13 @@ dcu:
 dcd:
 	${COMPOSE} down
 
-kdoc:
+kdmig:
 ifdef type
-	docker-compose exec app npm run ${type}
+	${COMPOSE} exec app npm run ${type}
 endif
+
+kdrun:
+	${COMPOSE} exec app npm run krun
 
 #############################
 # Application Teritory
