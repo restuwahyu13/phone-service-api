@@ -27,17 +27,18 @@ export const signToken = async (data: Record<string, any>, options: Ioptions): P
   try {
     const accessToken: string = jwt.sign({ ...data }, secretKey, {
       expiresIn: `${options.expiredAt}${typeTime[options.type]}`,
-      audience: 'book-store-api'
+      audience: 'phone-service-api'
     })
 
-    const setAccessToken: boolean | undefined = nds.set('accessToken', accessToken)
+    const encryptedToken: string = await encrypt(accessToken, 20)
+    const setAccessToken: boolean | undefined = nds.set('accessToken', encryptedToken)
 
     if (!setAccessToken) {
       throw { code: Status.BAD_REQUEST, message: 'Store accessToken into disk failed' }
     }
 
     const token: IToken = {
-      accessToken: await encrypt(accessToken, 26),
+      accessToken: encryptedToken,
       accessTokenExpired: `${convertTime(options.expiredAt as number, 'days')} Days`
     }
 
@@ -55,8 +56,8 @@ export const verifyToken = async (accessToken: string): Promise<jwt.JwtPayload |
       throw { code: Status.BAD_REQUEST, message: 'Get accessToken from disk failed' }
     }
 
-    const decryptAccessToken: string = await decrypt(getAccessToken, 26)
-    const decodedToken: string | jwt.JwtPayload = jwt.verify(decryptAccessToken, secretKey, { audience: 'book-store-api' })
+    const decryptAccessToken: string = await decrypt(getAccessToken, 20)
+    const decodedToken: string | jwt.JwtPayload = jwt.verify(decryptAccessToken, secretKey, { audience: 'phone-service-api' })
 
     return decodedToken
   } catch (e: any) {
