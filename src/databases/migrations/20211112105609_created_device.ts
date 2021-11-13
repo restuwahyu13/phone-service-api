@@ -3,7 +3,7 @@ import { Knex } from 'knex'
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.withSchema('public').createTable('device', (table: Knex.TableBuilder) => {
     table.increments('id').unsigned().index()
-    table.integer('company_id').references('id').inTable('company').unsigned().unique().notNullable().index()
+    table.integer('company_id').references('id').inTable('company').onDelete('CASCADE').unsigned().unique().notNullable().index()
     table.string('device_cd', 50).notNullable()
     table.string('description', 255).notNullable()
     table.boolean('active').notNullable()

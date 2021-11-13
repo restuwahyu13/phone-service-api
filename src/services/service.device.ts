@@ -31,7 +31,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
 
       return Promise.resolve({ code: status.CREATED, message: 'Add new device success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -103,7 +103,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
         devices: { count: countData.length, limit, page: totalPage, offset, data: newGetDevices }
       })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -161,7 +161,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
 
       return Promise.resolve({ code: status.OK, message: 'Device OK', device: getNewDevice })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -186,7 +186,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
 
       return Promise.resolve({ code: status.OK, message: `Delete device data, for this id ${req.params.id} success` })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -217,7 +217,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
 
       return Promise.resolve({ code: status.OK, message: 'Update device data success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 }

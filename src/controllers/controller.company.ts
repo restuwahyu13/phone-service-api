@@ -81,7 +81,7 @@ export class Schema {
         errorMessage: 'name must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'name not included unique character'
       }
     },
@@ -127,7 +127,7 @@ export class Schema {
         errorMessage: 'state must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'state not included unique character'
       }
     },
@@ -140,7 +140,7 @@ export class Schema {
         errorMessage: 'city must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'city not included unique character'
       }
     },
@@ -153,7 +153,7 @@ export class Schema {
         errorMessage: 'country must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'country not included unique character'
       }
     },
@@ -167,9 +167,9 @@ export class Schema {
       },
       isLength: {
         options: {
-          min: 6
+          min: 5
         },
-        errorMessage: 'postcode minimum 7 character'
+        errorMessage: 'postcode minimum 5 character'
       }
     },
     active: {
@@ -258,7 +258,7 @@ export class Schema {
         errorMessage: 'name must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'name not included unique character'
       }
     },
@@ -304,7 +304,7 @@ export class Schema {
         errorMessage: 'state must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'state not included unique character'
       }
     },
@@ -317,7 +317,7 @@ export class Schema {
         errorMessage: 'city must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'city not included unique character'
       }
     },
@@ -330,7 +330,7 @@ export class Schema {
         errorMessage: 'country must be string'
       },
       custom: {
-        options: (val: any) => /[^A-Z]/gi.test(val) === false,
+        options: (val: any) => /[^A-Z\s]/gi.test(val) === false,
         errorMessage: 'country not included unique character'
       }
     },
@@ -344,7 +344,7 @@ export class Schema {
       },
       isLength: {
         options: {
-          min: 6
+          min: 5
         },
         errorMessage: 'postcode minimum 7 character'
       }

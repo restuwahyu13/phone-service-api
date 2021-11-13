@@ -39,7 +39,7 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
 
       return Promise.resolve({ code: status.CREATED, message: 'Add new company success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -125,7 +125,7 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
         companys: { count: countData.length, limit, page: totalPage, offset, data: companys }
       })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -191,7 +191,7 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
 
       return Promise.resolve({ code: status.OK, message: 'Company OK', device: getNewServiceCompany })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -208,7 +208,7 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
         throw { code: status.NOT_FOUND, message: `Company data not found, for this id ${req.params.id}` }
       }
 
-      const deleteCompany: number = await super.model().query().deleteById(req.params.id)
+      const deleteCompany: number = await super.model().query().deleteById(checkCompanyId.id)
 
       if (!deleteCompany) {
         throw { code: status.FORBIDDEN, message: `Delete company data, for this id ${req.params.id} failed` }
@@ -216,7 +216,7 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
 
       return Promise.resolve({ code: status.OK, message: `Delete company data, for this id ${req.params.id} success` })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -247,7 +247,7 @@ export class ServiceCompany extends ModelCompany implements IServiceCompany {
 
       return Promise.resolve({ code: status.OK, message: 'Update company data success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 }

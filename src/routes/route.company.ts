@@ -13,7 +13,7 @@ class RouteCompany extends ControllerCompany {
   public main(): Router {
     this.router.post('/', [...Schema.createSchemaCompany, validator()], this.createControllerCompany)
     this.router.get('/', [...Schema.resultsSchemaCompany, validator()], this.resultsControllerCompany)
-    // this.router.get('/:id', [...Schema.resultSchemaCompany, validator()], this.resultControllerCompany)
+    this.router.get('/:id', [...Schema.resultSchemaCompany, validator()], this.resultControllerCompany)
     this.router.delete('/:id', [...Schema.deleteSchemaCompany, validator()], this.deleteControllerCompany)
     this.router.put('/:id', [...Schema.updateSchemaCompany, validator()], this.updateControllerCompany)
 

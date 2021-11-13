@@ -7,6 +7,8 @@ prod:
 	npm start
 build:
 	npm run build
+test:
+	npm test
 
 install: npm.o build.o seed.o
 

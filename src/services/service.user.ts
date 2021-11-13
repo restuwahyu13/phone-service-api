@@ -39,7 +39,7 @@ export class ServiceUser extends ModelUser implements IServiceUser {
 
       return Promise.resolve({ code: status.CREATED, message: 'Add new user success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -79,7 +79,7 @@ export class ServiceUser extends ModelUser implements IServiceUser {
 
       return Promise.resolve({ code: status.OK, message: 'Login success', token: generateAccessToken })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 }

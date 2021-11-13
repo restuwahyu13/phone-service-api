@@ -31,7 +31,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
       return Promise.resolve({ code: status.CREATED, message: 'Add new service repair success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -104,7 +104,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         services: { count: countData.length, limit, page: totalPage, offset, data: newGetServiceRepairs }
       })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -163,7 +163,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
       return Promise.resolve({ code: status.OK, message: 'Service Repair OK', device: getNewServiceRepair })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -188,7 +188,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
       return Promise.resolve({ code: status.OK, message: `Delete service repair data, for this id ${req.params.id} success` })
     } catch (e: any) {
-      return Promise.reject({ code: e.code, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 
@@ -219,7 +219,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
       return Promise.resolve({ code: status.OK, message: 'Update service repair data success' })
     } catch (e: any) {
-      return Promise.reject({ code: e.code || status.BAD_REQUEST, message: e.message })
+      return Promise.reject({ code: e.code || status.INTERNAL_SERVER_ERROR, message: e.message })
     }
   }
 }
