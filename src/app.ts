@@ -16,6 +16,11 @@ import { RouteRepair } from '@routes/route.repair'
 import { RouteUser } from '@routes/route.user'
 import { RouteCompany } from '@routes/route.company'
 
+interface IApp {
+  app: Express
+  db: KnexDB
+}
+
 export class App {
   private app: Express
   private server: Server
@@ -35,8 +40,9 @@ export class App {
     this.company = new RouteCompany().main()
   }
 
-  private async connection(): Promise<void> {
+  private connection(): KnexDB {
     Objection.Model.knex(this.knex)
+    return this.knex
   }
 
   private async middleware(): Promise<void> {
@@ -79,13 +85,20 @@ export class App {
   private async run(): Promise<void> {
     this.server.listen(process.env.PORT, () => {
       if (process.env.NODE_ENV !== 'production') {
-        console.log('Server is running on port: ', process.env.PORT)
+        console.log('Server is running on port:', process.env.PORT)
       }
     })
   }
 
+  public async mainTest(): Promise<IApp> {
+    await this.middleware()
+    await this.config()
+    await this.route()
+    return { app: this.app, db: this.connection() }
+  }
+
   public async main(): Promise<void> {
-    await this.connection()
+    this.connection()
     await this.middleware()
     await this.config()
     await this.route()
@@ -96,7 +109,22 @@ export class App {
 /**
  * @description intialize app and run app
  */
-
 ;(async function () {
   await new App().main()
 })()
+
+/**
+ * @description intialize app and db for testing
+ */
+
+let app: Express
+let db: KnexDB
+;(async function () {
+  if (process.env.NODE_ENV === 'test') {
+    const res = await new App().mainTest()
+    app = res.app
+    db = res.db
+  }
+})()
+
+export { app, db }

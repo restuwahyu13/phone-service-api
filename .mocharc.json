@@ -1,6 +1,5 @@
 {
   "spec": "src/__tests__/**/*.spec.ts",
-  "require": "ts-node/register",
   "extension": ["ts"],
   "full-trace": true,
   "recursive": true,
