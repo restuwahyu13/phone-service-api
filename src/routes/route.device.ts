@@ -20,3 +20,5 @@ export class RouteDevice extends ControllerDevice {
     return this.router
   }
 }
+
+export default new RouteDevice().main()

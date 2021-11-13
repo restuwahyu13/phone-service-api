@@ -17,3 +17,5 @@ export class RouteUser extends ControllerUser {
     return this.router
   }
 }
+
+export default new RouteUser().main()

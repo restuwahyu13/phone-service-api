@@ -12,12 +12,20 @@ chai.use(chaiHttp)
 chai.use(chaiDeepMatch)
 
 describe('Company Group Testing', function () {
-  it('Should be results all company', async function () {
-    const res = await chai.request(app).get('/api/v1/company').set('conten-type', 'application/json')
+  it('Should be results all company success', async function () {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/company')
+      .set('conten-type', 'application/json')
+      .query({ limit: 10, offset: 10 })
+
     expect(res.status).to.be.equal(200)
+    expect(res.body.message).to.be.equal('Companys OK')
   })
 
-  it('Should be subtract all company', function () {
-    expect(2 - 2).to.be.equal(0)
+  it('Should be results all company error', async function () {
+    const res = await chai.request(app).get('/api/v1/company').set('conten-type', 'application/json')
+
+    expect(res.status).to.be.equal(400)
   })
 })

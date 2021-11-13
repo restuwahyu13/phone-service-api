@@ -11,10 +11,10 @@ import compression from 'compression'
 import zlib from 'zlib'
 
 import * as knexfile from '@/knexfile'
-import { RouteDevice } from '@routes/route.device'
-import { RouteRepair } from '@routes/route.repair'
-import { RouteUser } from '@routes/route.user'
-import { RouteCompany } from '@routes/route.company'
+import RouteDevice from '@routes/route.device'
+import RouteRepair from '@routes/route.repair'
+import RouteUser from '@routes/route.user'
+import RouteCompany from '@routes/route.company'
 
 interface IApp {
   app: Express
@@ -24,20 +24,20 @@ interface IApp {
 export class App {
   private app: Express
   private server: Server
+  private knex: KnexDB
   private device: Router
   private repair: Router
   private user: Router
   private company: Router
-  private knex: KnexDB
 
   constructor() {
     this.app = express()
     this.server = http.createServer(this.app)
     this.knex = Knex(knexfile[process.env.NODE_ENV as string])
-    this.device = new RouteDevice().main()
-    this.repair = new RouteRepair().main()
-    this.user = new RouteUser().main()
-    this.company = new RouteCompany().main()
+    this.device = RouteDevice
+    this.repair = RouteRepair
+    this.user = RouteUser
+    this.company = RouteCompany
   }
 
   private connection(): KnexDB {
@@ -85,7 +85,7 @@ export class App {
   private async run(): Promise<void> {
     this.server.listen(process.env.PORT, () => {
       if (process.env.NODE_ENV !== 'production') {
-        console.log('Server is running on port:', process.env.PORT)
+        console.info('Server is running on port:', process.env.PORT)
       }
     })
   }
@@ -107,7 +107,7 @@ export class App {
 }
 
 /**
- * @description intialize app and run app
+ * @description intialize app and run app development / production
  */
 ;(async function () {
   await new App().main()

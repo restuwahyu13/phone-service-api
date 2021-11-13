@@ -20,3 +20,5 @@ export class RouteRepair extends ControllerRepair {
     return this.router
   }
 }
+
+export default new RouteRepair().main()
