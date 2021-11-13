@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "2b3c1d6a-d9b8-479c-92f2-9fbe9678ab8c",
+		"name": "sunartha_task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "create company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jacobs Group\",\n    \"email\": \"Mandy21@gmail.com\",\n    \"phone\": 87860974115,\n    \"address\": \"1241 Rippin Alley\",\n    \"state\": \"New Hampshire\",\n    \"city\": \"Olaberg\",\n    \"country\": \"Niger\",\n    \"postcode\": 16901,\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/company",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jacobs Group\",\n    \"email\": \"Mandy21@gmail.com\",\n    \"phone\": 87860974115,\n    \"address\": \"1241 Rippin Alley\",\n    \"state\": \"New Hampshire\",\n    \"city\": \"Olaberg\",\n    \"country\": \"Niger\",\n    \"postcode\": 16901,\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/company/1",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"company",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "results company",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  ysDbvAwcIcDCOtC1HcCmChL5wWC6CejRPWD9.ysDjTWC6HNGmCgPnSQfmCdicxRHfweVhvQZjvW5dv20cFWDsv2rfCdicxRHfwcCmCgfbxWC6GNStHdarGdG3IWqcTRbqCdirHdG2IXe4Htw4FWDbxQKcIcDquA9oTM1tTRD2uQHfFQZquMD9.IbfhO55J_z2NVPDNjMT9FL_ZaaZdYDOthHFTlGnRlNC",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{sunartha}}/company?limit=10&offset=0",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"company"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "result company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sunartha}}/company/1",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"company",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sunartha}}/company/1",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"company",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@gmail.com\",\n    \"password\": \"qwerty12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/auth/login",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"john\",\n    \"last_name\": \"doe\",\n    \"email\": \"johndoe@gmail.com\",\n    \"phone\": 87887242891,\n    \"password\": \"bukopin12\",\n    \"role\": \"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/auth/register",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "device",
+			"item": [
+				{
+					"name": "create device",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": 10,\n    \"device_cd\": \"SAMSUNGSR-7B\",\n    \"description\": \"samsung a6 2019\",\n    \"active\": true,\n    \"complexity\": \"low\",\n    \"created_by_id\": 1,\n    \"created_by_screen_id\": \"1\",\n    \"created_date_time\": \"2021-11-13T07:33:56.732Z\",\n    \"last_modified_by_id\": 1,\n    \"last_modified_by_screen_id\": \"1\",\n    \"last_modified_date_time\": \"2021-11-13T07:33:56.732Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/device",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"device"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update device",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": 11,\n    \"device_cd\": \"SAMSUNGSR-7B\",\n    \"description\": \"samsung a6 2019\",\n    \"active\": true,\n    \"complexity\": \"low\",\n    \"created_by_id\": 1,\n    \"created_by_screen_id\": \"1\",\n    \"created_date_time\": \"2021-11-13T07:33:56.732Z\",\n    \"last_modified_by_id\": 1,\n    \"last_modified_by_screen_id\": \"1\",\n    \"last_modified_date_time\": \"2021-11-13T07:33:56.732Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/device/2",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"device",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "results device",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  ysDbvAwcIcDCOtC1HcCmChL5wWC6CejRPWD9.ysDjTWC6HNGmCgPnSQfmCdicxRHfweVhvQZjvW5dv20cFWDsv2rfCdicxRHfwcCmCgfbxWC6GNStHdarGdG3IWqcTRbqCdirHdG2IXe4Htw4FWDbxQKcIcDquA9oTM1tTRD2uQHfFQZquMD9.IbfhO55J_z2NVPDNjMT9FL_ZaaZdYDOthHFTlGnRlNC",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{sunartha}}/device?limit=5&offset=0",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"device"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "result device",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sunartha}}/device/1",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"device",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete device",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sunartha}}/device/1",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"device",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "repair",
+			"item": [
+				{
+					"name": "create repair",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": 12,\n    \"service_cd\": \"SR-D7D01705\",\n    \"description\": \"ganti ic speaker\",\n    \"active\": true,\n    \"walk_in_service\": true,\n    \"preliminary_check\": true,\n    \"prepayment\": true,\n    \"created_by_id\": 2,\n    \"created_by_screen_id\": \"2\",\n    \"created_date_time\": \"2021-11-13T07:33:56.732Z\",\n    \"last_modified_by_id\": 2,\n    \"last_modified_by_screen_id\": \"2\",\n    \"last_modified_date_time\": \"2021-11-13T07:33:56.732Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/repair",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update repair",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": 10,\n    \"service_cd\": \"SR-D7D01705\",\n    \"description\": \"ganti ic speaker\",\n    \"active\": true,\n    \"walk_in_service\": true,\n    \"preliminary_check\": true,\n    \"prepayment\": true,\n    \"created_by_id\": 2,\n    \"created_by_screen_id\": \"2\",\n    \"created_date_time\": \"2021-11-13T07:33:56.732Z\",\n    \"last_modified_by_id\": 2,\n    \"last_modified_by_screen_id\": \"2\",\n    \"last_modified_date_time\": \"2021-11-13T07:33:56.732Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sunartha}}/repair",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "results repair",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  ysDbvAwcIcDCOtC1HcCmChL5wWC6CejRPWD9.ysDjTWC6HNGmCgPnSQfmCdicxRHfweVhvQZjvW5dv20cFWDsv2rfCdicxRHfwcCmCgfbxWC6GNStHdarGdG3IWqcTRbqCdirHdG2IXe4Htw4FWDbxQKcIcDquA9oTM1tTRD2uQHfFQZquMD9.IbfhO55J_z2NVPDNjMT9FL_ZaaZdYDOthHFTlGnRlNC",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{sunartha}}/repair?limit=10&offset=0",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"repair"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "result repair",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sunartha}}/repair/2",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"repair",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete repair",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sunartha}}/repair/2",
+							"host": [
+								"{{sunartha}}"
+							],
+							"path": [
+								"repair",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

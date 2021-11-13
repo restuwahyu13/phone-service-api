@@ -26,6 +26,7 @@ export class ModelUser extends Model implements DTOUser {
     const password: string = await hashPassword(this.password)
     this.password = password
     this.phone = String(this.phone)
+    this.active = true
     this.created_at = new Date()
   }
 

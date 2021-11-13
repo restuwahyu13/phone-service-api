@@ -14,7 +14,8 @@
     "test": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register",
     "kmig": "npx knex --cwd src --knexfile knexfile.ts migrate:latest",
     "kroll": "npx knex --cwd src --knexfile knexfile.ts migrate:rollback",
-    "klist": "npx knex --cwd src --knexfile knexfile.ts migrate:list"
+    "klist": "npx knex --cwd src --knexfile knexfile.ts migrate:list",
+    "krun": "npx knex --cwd src --knexfile knexfile.ts seed:run"
   },
   "author": "restuwahyu13",
   "license": "MIT",

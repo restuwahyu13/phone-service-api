@@ -30,7 +30,6 @@ export const auth = (): Handler => {
       req['payload'] = decodedToken
       next()
     } catch (e: any) {
-      console.log(e)
       res.status(e.code || Status.UNAUTHORIZED).json({ ...e })
     }
   }

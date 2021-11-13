@@ -13,6 +13,7 @@
     "dot-notation": 0,
     "prefer-const": 0,
     "no-octal": 0,
+    "quote-props": 0,
     "no-console": 1
   }
 }

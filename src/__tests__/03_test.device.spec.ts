@@ -16,6 +16,8 @@ chai.use(chaiDeepMatch)
 let devicePayload
 let companyData
 let userData
+let adminAccount
+let accessToken
 
 describe('Device Group Testing', function () {
   before(async function () {
@@ -37,24 +39,50 @@ describe('Device Group Testing', function () {
       created_at: new Date(),
       updated_at: new Date()
     }
+
+    adminAccount = {
+      email: 'admin@gmail.com',
+      password: 'qwerty12'
+    }
+  })
+
+  it('Should be login success', async function () {
+    const res = await chai.request(app).post('/api/v1/auth/login').set({ 'Conten-Type': 'application/json' }).send(adminAccount)
+
+    expect(res.status).to.be.equal(200)
+    expect(res.body.message).to.be.equal('Login success')
+
+    accessToken = res.body.token.accessToken
   })
 
   it('Should be create device success', async function () {
-    const res = await chai.request(app).post('/api/v1/device').set('conten-type', 'application/json').send(devicePayload)
+    const res = await chai
+      .request(app)
+      .post('/api/v1/device')
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
+      .send(devicePayload)
 
     expect(res.status).to.be.equal(201)
     expect(res.body.message).to.be.equal('Add new device success')
   })
 
   it('Should be create device already exist', async function () {
-    const res = await chai.request(app).post('/api/v1/device').set('conten-type', 'application/json').send(devicePayload)
+    const res = await chai
+      .request(app)
+      .post('/api/v1/device')
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
+      .send(devicePayload)
 
     expect(res.status).to.be.equal(409)
     expect(res.body.message).to.be.equal('Device code already exist')
   })
 
   it('Should be create device error', async function () {
-    const res = await chai.request(app).post('/api/v1/device').set('conten-type', 'application/json').send({})
+    const res = await chai
+      .request(app)
+      .post('/api/v1/device')
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
+      .send({})
 
     expect(res.status).to.be.equal(400)
   })
@@ -63,7 +91,7 @@ describe('Device Group Testing', function () {
     const res = await chai
       .request(app)
       .get('/api/v1/device')
-      .set('conten-type', 'application/json')
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
       .query({ limit: 10, offset: 10 })
 
     expect(res.status).to.be.equal(200)
@@ -71,46 +99,69 @@ describe('Device Group Testing', function () {
   })
 
   it('Should be results all device error', async function () {
-    const res = await chai.request(app).get('/api/v1/device').set('conten-type', 'application/json')
+    const res = await chai
+      .request(app)
+      .get('/api/v1/device')
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
 
     expect(res.status).to.be.equal(400)
   })
 
   it('Should be result by id device success', async function () {
-    const res = await chai.request(app).get(`/api/v1/device/${2}`).set('conten-type', 'application/json')
+    const res = await chai
+      .request(app)
+      .get(`/api/v1/device/${2}`)
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
 
     expect(res.status).to.be.equal(200)
     expect(res.body.message).to.be.equal('Device OK')
   })
 
   it('Should be result by id device error', async function () {
-    const res = await chai.request(app).get('/api/v1/device/abc').set('conten-type', 'application/json')
+    const res = await chai
+      .request(app)
+      .get('/api/v1/device/abc')
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
 
     expect(res.status).to.be.equal(400)
   })
 
   it('Should be update device success', async function () {
-    const res = await chai.request(app).put(`/api/v1/device/${2}`).set('conten-type', 'application/json').send(devicePayload)
+    const res = await chai
+      .request(app)
+      .put(`/api/v1/device/${2}`)
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
+      .send(devicePayload)
 
     expect(res.status).to.be.equal(200)
     expect(res.body.message).to.be.equal('Update device data success')
   })
 
   it('Should be update device error', async function () {
-    const res = await chai.request(app).put(`/api/v1/device/${2}`).set('conten-type', 'application/json').send({})
+    const res = await chai
+      .request(app)
+      .put(`/api/v1/device/${2}`)
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
+      .send({})
 
     expect(res.status).to.be.equal(400)
   })
 
   it('Should be delete by id device success', async function () {
-    const res = await chai.request(app).delete(`/api/v1/device/${2}`).set('conten-type', 'application/json')
+    const res = await chai
+      .request(app)
+      .delete(`/api/v1/device/${2}`)
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
 
     expect(res.status).to.be.equal(200)
     expect(res.body.message).to.be.equal(`Delete device data, for this id ${2} success`)
   })
 
   it('Should be delete by id device error', async function () {
-    const res = await chai.request(app).delete(`/api/v1/device/${2}`).set('conten-type', 'application/json')
+    const res = await chai
+      .request(app)
+      .delete(`/api/v1/device/${2}`)
+      .set({ 'Conten-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` })
 
     expect(res.status).to.be.equal(404)
     expect(res.body.message).to.be.equal(`Device data not found, for this id ${2}`)

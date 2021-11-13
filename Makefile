@@ -1,46 +1,78 @@
+#================================
+#== DOCKER ENVIRONMENT
+#================================
+COMPOSE := docker-compose
+
+dcb:
+	${COMPOSE} build
+
+dcbuf:
+ifdef f
+	${COMPOSE} up -d --build --${f}
+endif
+
+dcuf:
+ifdef f
+	${COMPOSE} up -d --${f}
+endif
+
+dcu:
+	${COMPOSE} up -d --build
+
+dcd:
+	${COMPOSE} down
+
+
 #############################
 # Application Teritory
 #############################
+
+NPM := npm
+
 dev:
-	@npm run dev
+	${NPM} run dev
 prod:
-	@npm start
+	${NPM} start
 build:
-	@npm run build
+	${NPM} run build
 test:
-	@npm test
+	${NPM} test
 
 install: npm.o build.o test.o
 
 npm.o:
-	@npm ci
+	${NPM} ci
 
 build.o:
-	@npm run build
+	${NPM} run build
 
 test.o:
-	@npm test
+	${NPM} test
 
 #############################
 # Knex Database Teritory
 #############################
-kmake:
+
+NPX := npx
+KNEX := knex
+
+kmakem:
 ifdef name
-	@npx knex --cwd src --knexfile knexfile migrate:make ${name}
+	${NPX} ${KNEX} --cwd src --knexfile knexfile migrate:make ${name}
 endif
 
 kmakes:
 ifdef name
-	@npx knex --cwd src --knexfile knexfile seed:make ${name}
+	${NPX} ${KNEX} --cwd src --knexfile knexfile seed:make ${name}
 endif
 
 kmig:
 ifdef type
-	@npx knex --cwd src --knexfile knexfile migrate:${type}
+	${NPX} ${KNEX} --cwd src --knexfile knexfile migrate:${type}
 endif
 
 krun:
-	@npx knex --cwd src --knexfile knexfile seed:run
+	${NPX} ${KNEX} --cwd src --knexfile knexfile seed:run
 
 klist:
-	@npx knex --cwd src --knexfile knexfile migrate:list
+	${NPX} ${KNEX} --cwd src --knexfile knexfile migrate:list

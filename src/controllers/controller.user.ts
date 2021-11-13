@@ -86,15 +86,6 @@ export class Schema {
         errorMessage: 'password minimum 8 character'
       }
     },
-    active: {
-      in: ['body'],
-      notEmpty: {
-        errorMessage: 'active is required'
-      },
-      isBoolean: {
-        errorMessage: 'active must be boolean'
-      }
-    },
     role: {
       in: ['body'],
       notEmpty: {
