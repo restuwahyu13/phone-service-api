@@ -144,8 +144,8 @@ export class Schema {
       notEmpty: {
         errorMessage: 'created_date_time is required'
       },
-      isDate: {
-        errorMessage: 'created_date_time must be date'
+      isISO8601: {
+        errorMessage: 'created_date_time must be timestamp'
       }
     },
     last_modified_by_id: {
@@ -171,8 +171,8 @@ export class Schema {
       notEmpty: {
         errorMessage: 'last_modified_date_time is required'
       },
-      isDate: {
-        errorMessage: 'last_modified_date_time must be date'
+      isISO8601: {
+        errorMessage: 'last_modified_date_time must be timestamp'
       }
     },
     noted_id: {
@@ -322,8 +322,8 @@ export class Schema {
       notEmpty: {
         errorMessage: 'created_date_time is required'
       },
-      isDate: {
-        errorMessage: 'created_date_time must be date'
+      isISO8601: {
+        errorMessage: 'created_date_time must be timestamp'
       }
     },
     last_modified_by_id: {
@@ -349,8 +349,8 @@ export class Schema {
       notEmpty: {
         errorMessage: 'last_modified_date_time is required'
       },
-      isDate: {
-        errorMessage: 'last_modified_date_time must be date'
+      isISO8601: {
+        errorMessage: 'last_modified_date_time must be timestamp'
       }
     },
     noted_id: {

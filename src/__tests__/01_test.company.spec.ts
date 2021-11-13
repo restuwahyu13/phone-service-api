@@ -3,7 +3,7 @@ import chai from 'chai'
 import chaiHttp from 'chai-http'
 import chaiDeepMatch from 'chai-deep-match'
 import faker from 'faker'
-import { app, db } from '../app'
+import { app } from '../app'
 import { randomPhoneNumber } from '../helpers/helper.randomPhone'
 import { randomZipCode } from '../helpers/helper.randomZipCode'
 
@@ -19,7 +19,6 @@ let companyPayload
 
 describe('Company Group Testing', function () {
   before(async function () {
-    await db.seed.run()
     companyPayload = {
       name: 'Jamal Mirdad',
       email: 'jamalmirdad@gmail.com',

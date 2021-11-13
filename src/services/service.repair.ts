@@ -128,7 +128,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         )
         .join('company', 'repair_service.company_id', '=', 'company.id')
         .join('user', 'repair_service.created_by_id', '=', 'user.id')
-        .where('device.id', req.params.id)
+        .where('repair_service.id', req.params.id)
         .first()
 
       if (!getServiceRepair) {
