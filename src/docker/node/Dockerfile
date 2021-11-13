@@ -4,7 +4,7 @@
 FROM node:14.18.1-alpine
 WORKDIR /app
 USER ${USER}
-COPY package*.json /app/
+COPY ./package*.json /app/
 COPY . /app/
 RUN apk add --update \
   && apk add make \
