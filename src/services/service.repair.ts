@@ -72,7 +72,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
       const newGetServiceRepairs: Record<string, any>[] = getServiceRepairs.map((val: Record<string, any>) => {
         return {
-          service_id: val.service_id,
+          id: val.id,
           service_cd: val.service_cd,
           description: val.description,
           active: val.active,
@@ -81,6 +81,8 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
           prepayment: val.prepayment,
           noted_id: val.note,
           created_by: `${val.first_name}  ${val.last_name}`,
+          created_at: val.created_at,
+          updated_at: val.updated_at,
           company: {
             id: val.companyId,
             name: val.name,
@@ -134,7 +136,7 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
       }
 
       const getNewServiceRepair: Record<string, any> = {
-        service_id: getServiceRepair.service_id,
+        id: getServiceRepair.id,
         service_cd: getServiceRepair.service_cd,
         description: getServiceRepair.description,
         active: getServiceRepair.active,
@@ -143,6 +145,8 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
         prepayment: getServiceRepair.prepayment,
         noted_id: getServiceRepair.note,
         created_by: `${getServiceRepair.first_name}  ${getServiceRepair.last_name}`,
+        created_at: getServiceRepair.created_at,
+        updated_at: getServiceRepair.updated_at,
         company: {
           id: getServiceRepair.companyId,
           name: getServiceRepair.name,

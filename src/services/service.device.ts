@@ -72,6 +72,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
 
       const newGetDevices: Record<string, any>[] = getDevices.map((val: Record<string, any>) => {
         return {
+          id: val.id,
           device_id: val.device_id,
           device_cd: val.device_cd,
           description: val.description,
@@ -79,6 +80,8 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
           complexity: val.complexity,
           noted_id: val.note,
           created_by: `${val.first_name}  ${val.last_name}`,
+          created_at: val.created_at,
+          updated_at: val.updated_at,
           company: {
             id: val.companyId,
             name: val.name,
@@ -132,6 +135,7 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
       }
 
       const getNewDevice: Record<string, any> = {
+        id: getDevice.id,
         device_id: getDevice.device_id,
         device_cd: getDevice.device_cd,
         description: getDevice.description,
@@ -139,6 +143,8 @@ export class ServiceDevice extends ModelDevice implements IServiceDevice {
         complexity: getDevice.complexity,
         noted_id: getDevice.note,
         created_by: `${getDevice.first_name}  ${getDevice.last_name}`,
+        created_at: getDevice.created_at,
+        updated_at: getDevice.updated_at,
         company: {
           id: getDevice.companyId,
           name: getDevice.name,
