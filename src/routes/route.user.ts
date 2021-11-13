@@ -11,8 +11,8 @@ export class RouteUser extends ControllerUser {
   }
 
   public main(): Router {
-    this.router.post('/auth/register', [...Schema.registerSchemaUser, validator()], this.registerControllerUser)
-    this.router.get('/auth/login', [...Schema.loginSchemaUser, validator()], this.loginControllerUser)
+    this.router.post('/register', [...Schema.registerSchemaUser, validator()], this.registerControllerUser)
+    this.router.post('/login', [...Schema.loginSchemaUser, validator()], this.loginControllerUser)
 
     return this.router
   }

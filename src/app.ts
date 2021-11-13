@@ -80,7 +80,7 @@ export class App {
   private async route(): Promise<void> {
     this.app.use('/api/v1/device', this.device)
     this.app.use('/api/v1/repair', this.repair)
-    this.app.use('/api/v1/user', this.user)
+    this.app.use('/api/v1/auth', this.user)
     this.app.use('/api/v1/company', this.company)
   }
 

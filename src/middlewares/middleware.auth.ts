@@ -6,17 +6,17 @@ import { JwtPayload } from 'jsonwebtoken'
 import { verifyToken } from '@libs/lib.jwt'
 
 export const auth = (): Handler => {
-  return function (req: Request, res: Response, next: NextFunction) {
+  return async function (req: Request, res: Response, next: NextFunction) {
     try {
       let headers: IncomingHttpHeaders = req.headers
 
-      if (Object.keys(headers).includes('authorization')) {
+      if (!Object.keys(headers).includes('authorization')) {
         throw { code: Status.UNAUTHORIZED, message: 'Authorization is required' }
       }
 
       const authorization: boolean | undefined = (headers.authorization as any).includes('Bearer')
 
-      if (assert.isUndefined(authorization as any)) {
+      if (!authorization) {
         throw { code: Status.UNAUTHORIZED, message: 'Bearer is required' }
       }
 
@@ -26,10 +26,11 @@ export const auth = (): Handler => {
         throw { code: Status.UNAUTHORIZED, message: 'Access Token is required' }
       }
 
-      const decodedToken: JwtPayload = verifyToken(accessToken as any)
+      const decodedToken: Record<string, any> | string | JwtPayload = await verifyToken(accessToken as any)
       req['payload'] = decodedToken
       next()
     } catch (e: any) {
+      console.log(e)
       res.status(e.code || Status.UNAUTHORIZED).json({ ...e })
     }
   }
