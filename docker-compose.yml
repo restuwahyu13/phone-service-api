@@ -6,7 +6,7 @@ services:
   app:
     restart: always
     build:
-      context: src/docker/node
+      context: docker/node
       dockerfile: Dockerfile
     env_file: .env
     ports:
@@ -14,15 +14,15 @@ services:
     networks:
       - sunartha-network
     volumes:
-      - .:/usr/app
-      - /usr/app/node_modules
+      - .:/app
+      - /app/node_modules
   ###############################
   # DTABASE SERVICES
   ##############################
   db:
     restart: always
     build:
-      context: src/docker/pg
+      context: docker/pg
       dockerfile: Dockerfile
     environment:
       - POSTGRES_HOST=${DB_HOST}

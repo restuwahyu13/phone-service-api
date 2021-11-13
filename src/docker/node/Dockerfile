@@ -1,18 +1,15 @@
 #####################
-# FIRST STAGE STEP
+# NODE ENVIRONMENT
 ####################
-FROM node:14.18.1-alpine as node
-WORKDIR /usr/app
+FROM node:14.18.1-alpine
+WORKDIR /app
 USER ${USER}
-COPY package*.json ./
-COPY . ./
-RUN apk add --update && make
-
-#####################
-# SECOND STAGE STEP
-#####################
-FROM node
-COPY --from=node ./ ./usr/app/
-RUN make install
-EXPOSE 3000 3000
+COPY package*.json /app/
+COPY . /app/
+RUN apk add --update \
+  && apk add make \
+  && npm ci \
+  npm run build \
+  npm test
+EXPOSE 3000
 CMD npm start
