@@ -38,16 +38,13 @@ build:
 test:
 	${NPM} test
 
-install: npm.o build.o test.o
+install: npm.o build.o
 
 npm.o:
 	${NPM} ci
 
 build.o:
 	${NPM} run build
-
-test.o:
-	${NPM} test
 
 #############################
 # Knex Database Teritory
