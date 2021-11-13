@@ -42,8 +42,8 @@ export class ServiceRepair extends ModelRepair implements IServiceRepair {
 
   public async resultsServiceRepair(req: Request<IRepair>): Promise<Record<string, any>> {
     try {
-      const limit: any = parseInt(req.query.limit as any)
-      const offset: any = parseInt(req.query.offset as any)
+      const limit: any = parseInt(req.query.limit as any) || 10
+      const offset: any = parseInt(req.query.offset as any) || 0
       const sort: any = req.query.sort || 'desc'
       const perpage = limit
       const countData: ModelRepair[] = await super.model().query().select('id')

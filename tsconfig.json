@@ -37,7 +37,7 @@
     "noImplicitReturns": false
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "src/__tests__/", "dist"],
+  "exclude": ["node_modules", "src/__tests__/", "dist", "src/docker/"],
   "ts-node": {
     "compilerHost": true,
     "transpileOnly": true,

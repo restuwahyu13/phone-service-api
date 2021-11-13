@@ -187,18 +187,14 @@ export class Schema {
   static resultsSchemaDevice = checkSchema({
     limit: {
       in: ['query'],
-      notEmpty: {
-        errorMessage: 'limit is required'
-      },
+      optional: true,
       isNumeric: {
         errorMessage: 'limit must be number'
       }
     },
     offset: {
       in: ['query'],
-      notEmpty: {
-        errorMessage: 'offset is required'
-      },
+      optional: true,
       isNumeric: {
         errorMessage: 'offset must be number'
       }

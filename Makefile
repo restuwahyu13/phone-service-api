@@ -4,9 +4,20 @@
 dev:
 	npm run dev
 prod:
-	npm run start
+	npm start
 build:
 	npm run build
+
+install: npm.o build.o seed.o
+
+npm.o:
+	npm ci
+
+build.o:
+	npm run build
+
+seed.o:
+	npx knex --cwd src --knexfile knexfile seed:run
 
 #############################
 # Knex Database Teritory
