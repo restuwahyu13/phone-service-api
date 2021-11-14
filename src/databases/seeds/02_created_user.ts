@@ -1,6 +1,7 @@
 import { Knex } from 'knex'
 import faker from 'faker'
 import { randomPhoneNumber } from '../../helpers/helper.randomPhone'
+import { hashPassword } from '../../libs/lib.bcrypt'
 
 export async function seed(knex: Knex): Promise<void> {
   const usersData: Record<string, any> = []
@@ -11,7 +12,7 @@ export async function seed(knex: Knex): Promise<void> {
       last_name: faker.name.lastName(),
       email: faker.internet.email(),
       phone: randomPhoneNumber(),
-      password: '@Qwerty12',
+      password: hashPassword('@Qwerty12'),
       active: true,
       role: 'user',
       created_at: new Date(),
@@ -25,7 +26,7 @@ export async function seed(knex: Knex): Promise<void> {
       last_name: faker.name.lastName(),
       email: faker.internet.email(),
       phone: randomPhoneNumber(),
-      password: '@Qwerty12',
+      password: hashPassword('@Qwerty12'),
       active: true,
       role: 'admin',
       created_at: new Date(),
@@ -39,7 +40,7 @@ export async function seed(knex: Knex): Promise<void> {
       last_name: faker.name.lastName(),
       email: faker.internet.email(),
       phone: randomPhoneNumber(),
-      password: '@Qwerty12',
+      password: hashPassword('@Qwerty12'),
       active: true,
       role: 'company',
       created_at: new Date(),
@@ -52,7 +53,7 @@ export async function seed(knex: Knex): Promise<void> {
     last_name: 'admin',
     email: 'admin@gmail.com',
     phone: randomPhoneNumber(),
-    password: 'qwerty12',
+    password: hashPassword('qwerty12'),
     active: true,
     role: 'admin',
     created_at: new Date(),
@@ -64,7 +65,7 @@ export async function seed(knex: Knex): Promise<void> {
     last_name: 'company',
     email: 'company@gmail.com',
     phone: randomPhoneNumber(),
-    password: 'qwerty12',
+    password: hashPassword('qwerty12'),
     active: true,
     role: 'company',
     created_at: new Date(),
@@ -76,7 +77,7 @@ export async function seed(knex: Knex): Promise<void> {
     last_name: 'user',
     email: 'user@gmail.com',
     phone: randomPhoneNumber(),
-    password: 'qwerty12',
+    password: hashPassword('qwerty12'),
     active: true,
     role: 'user',
     created_at: new Date(),

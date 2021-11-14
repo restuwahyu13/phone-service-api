@@ -27,6 +27,8 @@ export const auth = (): Handler => {
       }
 
       const decodedToken: Record<string, any> | string | JwtPayload = await verifyToken(accessToken as any)
+      console.log(decodedToken)
+
       req['payload'] = decodedToken
       next()
     } catch (e: any) {

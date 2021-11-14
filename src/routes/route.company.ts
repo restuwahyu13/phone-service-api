@@ -30,7 +30,7 @@ class RouteCompany extends ControllerCompany {
     )
     this.router.delete(
       '/:id',
-      [auth(), permission(['admin', 'company']), ...Schema.deleteSchemaCompany, validator()],
+      [auth(), permission(['admin']), ...Schema.deleteSchemaCompany, validator()],
       this.deleteControllerCompany
     )
     this.router.put(

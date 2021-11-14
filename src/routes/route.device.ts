@@ -30,7 +30,7 @@ export class RouteDevice extends ControllerDevice {
     )
     this.router.delete(
       '/:id',
-      [auth(), permission(['admin', 'company']), ...Schema.deleteSchemaDevice, validator()],
+      [auth(), permission(['admin']), ...Schema.deleteSchemaDevice, validator()],
       this.deleteControllerDevice
     )
     this.router.put(

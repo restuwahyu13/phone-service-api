@@ -30,7 +30,7 @@ export class RouteRepair extends ControllerRepair {
     )
     this.router.delete(
       '/:id',
-      [auth(), permission(['admin', 'company']), ...Schema.deleteSchemaRepair, validator()],
+      [auth(), permission(['admin']), ...Schema.deleteSchemaRepair, validator()],
       this.deleteControllerRepair
     )
     this.router.put(
