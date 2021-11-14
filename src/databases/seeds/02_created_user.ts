@@ -1,7 +1,7 @@
 import { Knex } from 'knex'
 import faker from 'faker'
 import { randomPhoneNumber } from '../../helpers/helper.randomPhone'
-import { await hashPassword } from '../../libs/lib.bcrypt'
+import { hashPassword } from '../../libs/lib.bcrypt'
 
 export async function seed(knex: Knex): Promise<void> {
   const usersData: Record<string, any> = []
